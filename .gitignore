@@ -7,6 +7,11 @@ yarn-error.log*
 
 sftp-config.json
 
+*.xlsx
+*.xls
+*.zip
+Photos/
+
 # Runtime data
 pids
 *.pid
