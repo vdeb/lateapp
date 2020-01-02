@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
+import { withTracker } from 'meteor/react-meteor-data';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import ListGroup from 'react-bootstrap/ListGroup';
 
+import { Students } from '../api/students.js';
+
 import Student from './Student.jsx';
 
 
-export default class App extends Component {
+class App extends Component {
 
   getStudents() {
     return [
@@ -18,7 +21,7 @@ export default class App extends Component {
   }
 
   renderStudents() {
-    return this.getStudents().map( (student) => (
+    return this.props.students.map( (student) => (
       <Student key={student._id} student={student} />
     ));
   }
@@ -36,7 +39,6 @@ export default class App extends Component {
           </ListGroup>
         </Col>
         <Col md={10}>
-          Fenêtre principale
           <ul>{this.renderStudents()}</ul>
         </Col>
       </Row>
@@ -44,3 +46,9 @@ export default class App extends Component {
     );
   }
 }
+
+export default withTracker(() => {
+  return {
+    students: Students.find({}).fetch(),
+  };
+})(App);
