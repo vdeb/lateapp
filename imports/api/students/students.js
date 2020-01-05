@@ -28,7 +28,7 @@ Students.deny({
     sex: {
         type: String,
         max: 1,
-        regEx: /[mf]/
+        regEx: /[MF]/
     },
     createdAt: {
       type: Date,
