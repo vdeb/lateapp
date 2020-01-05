@@ -54,9 +54,6 @@ class App extends Component {
         <Col xs={12} md={12}>
           <Row>
           {this.props.students.length > 0 && this.renderStudents()}
-          {this.renderStudents()}
-          {this.renderStudents()}
-          {this.renderStudents()}
           </Row>
         </Col>
     </Container>
