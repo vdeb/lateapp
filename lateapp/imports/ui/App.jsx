@@ -6,7 +6,7 @@ import Col from 'react-bootstrap/Col';
 import ListGroup from 'react-bootstrap/ListGroup';
 import CardDeck from 'react-bootstrap/CardDeck';
 
-import { Students } from '../api/students.js';
+import { Students } from '../api/students/students.js';
 
 import SimpleStudent from './components/SimpleStudent.jsx';
 
@@ -37,6 +37,8 @@ class App extends Component {
 }
 
 export default withTracker(() => {
+  Meteor.subscribe('students');
+
   return {
     students: Students.find({}, { sort: { name: 1 } }).fetch(),
   };
