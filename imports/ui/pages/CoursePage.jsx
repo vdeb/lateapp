@@ -32,7 +32,9 @@ export default class CoursePage extends Component {
         event.preventDefault();
         event.stopPropagation();
     }
-
+    else {
+        Meteor.call('sessions.insert', {name: "Pizza", sessionDate: new Date()});
+    }
     this.setState({FormValidated: true});
     }
 
