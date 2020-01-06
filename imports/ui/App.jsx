@@ -1,9 +1,10 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import Button from 'react-bootstrap/Button'
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
 
 import { Students } from '../api/students/students.js';
 
@@ -15,10 +16,12 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      FormVisible: false
+      FormVisible: false,
+      FormValidated: false
     }
 
     this.displayForm = this.displayForm.bind(this);
+    this.handleFormSubmit = this.handleFormSubmit.bind(this);
   }
 
   renderStudents() {
@@ -33,9 +36,40 @@ class App extends Component {
     })
   }
 
+  handleFormSubmit(event) {
+    const form = event.currentTarget;
+    if (form.checkValidity() === false) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+
+    this.setState({FormValidated: true});
+    
+  }
+
   renderForm() {
+
     return (
-      <p>Hellooo</p>
+      <Form noValidate validated={this.state.FormValidated} onSubmit={this.handleFormSubmit} className="border p-2">
+        <h5>Création d'une nouvelle session</h5>
+        <Form.Group as={Row} controlId="LabelText">
+          <Form.Label column sm={6} md={4} lg={2}>Nom de la session (Optionel)</Form.Label>
+          <Col sm={6} md={4} lg={3} >
+            <Form.Control placeholder="Ex: Cours avec Kynapse"></Form.Control>
+          </Col>
+        </Form.Group>
+        <Form.Group as={Row} controlId="DateGroup">
+          <Form.Label column sm={6} md={4} lg={2}>Date</Form.Label>
+          <Col sm={6} md={4} lg={3} >
+            <Form.Control required type="datetime-local" placeholder="2019-01-01T10:30"></Form.Control>
+            <Form.Control.Feedback type="invalid">
+              Merci de remplir une date et une heure
+            </Form.Control.Feedback>
+          </Col>
+        </Form.Group>
+
+        <Button type="submit">Démarrer le cours</Button>
+      </Form>
     )
   }
 
