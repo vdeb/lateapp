@@ -9,12 +9,13 @@ class SessionsCollection extends Mongo.Collection {
         const ourSession = session;
         if (!ourSession.name) {
             console.log("Name not defined");
-            ourSession.name = `Session du ${ourSession.sessionDate}`;
+            ourSession.name = `Session du ${ourSession.sessionDate.toLocaleString('fr')}`;
         }
 
-        const studentsList = Students.find({}).fetch();
-        console.log(studentsList);
         ourSession.students = Students.find({}).fetch();
+
+        // An active session is an ongoing one
+        ourSession.active = true;
     
         return super.insert(ourSession, callback);
       }
@@ -37,6 +38,9 @@ Sessions.deny({
     },
     sessionDate: {
         type: Date,
+    },
+    active: {
+        type: Boolean
     },
     students: {
         type: Array,

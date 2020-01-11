@@ -16,7 +16,6 @@ export const insert = new ValidatedMethod({
         }
     }).validator(),
     run({ name, sessionDate }) {
-        console.log("We re in the method !")
       return Sessions.insert({ name, sessionDate });
     },
   });
