@@ -1,37 +1,31 @@
 import React, { Component } from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
 import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import ListGroup from 'react-bootstrap/ListGroup';
-import CardDeck from 'react-bootstrap/CardDeck';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
+
+import CoursePage from './pages/CoursePage.jsx';
+import JoinPage from './pages/AuthPageJoin.jsx';
 
 import { Students } from '../api/students/students.js';
 
-import SimpleStudent from './components/SimpleStudent.jsx';
-
-
 class App extends Component {
-
-  renderStudents() {
-    return this.props.students.map( (student) => (
-      <SimpleStudent key={student._id} student={student} />
-    ));
-  }
 
   render() {
     return (
-      <Container fluid>
-      <h1>Welcome to LateApp!</h1>
-        <Col xs={12} md={12}>
-          <Row>
-          {this.renderStudents()}
-          {this.renderStudents()}
-          {this.renderStudents()}
-          {this.renderStudents()}
-          </Row>
-        </Col>
-    </Container>
+      <BrowserRouter>
+        <Container fluid>
+        <Switch>
+          <Route
+            path="/join"
+            component={JoinPage}
+          />
+          <Route
+            path="/*">
+             <CoursePage students={this.props.students} />
+          </Route>
+        </Switch>      
+        </Container>
+      </BrowserRouter>
     );
   }
 }
