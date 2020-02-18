@@ -22,3 +22,4 @@ ddp-rate-limiter@1.0.7
 accounts-base@1.5.0
 accounts-password@1.5.2
 mdg:validated-method
+reywood:publish-composite

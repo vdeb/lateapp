@@ -73,6 +73,7 @@ a:focus {
 #sidebar .sidebar-header {
     padding: 20px;
     background: #6d7fcc;
+    color: #fff;
 }
 
 #sidebar ul.components {

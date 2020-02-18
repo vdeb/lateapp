@@ -6,7 +6,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 import UserMenu from './components/UserMenu.jsx';
 
-import CoursePage from './pages/CoursePage.jsx';
+import SingleClassPage from './pages/SingleClassPage.jsx';
 import JoinPage from './pages/JoinPage.jsx';
 import SignInPage from './pages/SignInPage.jsx';
 import NotFoundPage from './pages/NotFoundPage.jsx';
@@ -27,9 +27,11 @@ class App extends Component {
         <BrowserRouter>
         <Nav id="sidebar">
 
-          <div className="sidebar-header">
-              <h3>LateApp</h3>
-          </div>
+          <a href='/'>
+            <div className="sidebar-header">
+                <h3>LateApp</h3>
+            </div>
+          </a>
           <UserMenu user={this.props.user} logout={this.logout}/>
           <ul className="list-unstyled components">
             <p>Content</p>
@@ -57,7 +59,7 @@ class App extends Component {
             />
             <Route exact
               path="/">
-              <CoursePage students={this.props.students} />
+              <SingleClassPage students={this.props.students} />
             </Route>
             <Route
               path="/">
