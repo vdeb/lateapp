@@ -1,9 +1,12 @@
 import { Meteor } from 'meteor/meteor';
 import { Students } from '../../api/students/students.js';
+import { Classes } from '../../api/classes/classes.js';
+import { Accounts } from 'meteor/accounts-base';
 
 // if the database is empty on server start, create some sample data.
 Meteor.startup(() => {
-  if (Students.find().count() === 0) {
+   const user = Accounts.findUserByEmail('victor.debray.2011@gmail.com');
+  if (Classes.find().count() === 0) {
     const data = [
         {
             "name" : "Ella",
@@ -57,6 +60,12 @@ Meteor.startup(() => {
 
     let timestamp = (new Date()).getTime();
 
+    const classId = Classes.insert({
+        name: 'Innov 2020',
+        userId: user._id,
+        createdAt: new Date(timestamp)
+    })
+
     data.forEach((student) => {
         // will be used afterwards
       const studentId = Students.insert({
@@ -64,9 +73,9 @@ Meteor.startup(() => {
         surname: student.surname,
         nationality: student.nationality,
         sex: student.sex,
-        createdAt: new Date(timestamp)
+        createdAt: new Date(timestamp),
+        classId : classId
       });
-
 
         timestamp += 1; // ensure unique timestamp.
       });

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 
 import UserMenu from './components/UserMenu.jsx';
 
@@ -10,8 +10,10 @@ import SingleClassPage from './pages/SingleClassPage.jsx';
 import JoinPage from './pages/JoinPage.jsx';
 import SignInPage from './pages/SignInPage.jsx';
 import NotFoundPage from './pages/NotFoundPage.jsx';
+import ClassesPage from './pages/ClassesPage.jsx';
 
 import { Students } from '../api/students/students.js';
+import CoursePage from './pages/SingleClassPage.jsx';
 
 class App extends Component {
 
@@ -57,9 +59,21 @@ class App extends Component {
               path="/signin"
               component={SignInPage}
             />
-            <Route exact
-              path="/">
+            <Route
+              path="/classes"
+              component={ClassesPage}
+            />
+            <Route 
+              path="/class">
               <SingleClassPage students={this.props.students} />
+            </Route>
+            <Route 
+              exact path='/'>
+              <Redirect
+                to={{
+                  pathname: "/classes"
+                }}
+              />
             </Route>
             <Route
               path="/">

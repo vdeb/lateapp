@@ -30,6 +30,10 @@ Students.deny({
         max: 1,
         regEx: /[MF]/
     },
+    classId: {
+      type: String,
+      regEx: SimpleSchema.RegEx.Id,
+    },
     createdAt: {
       type: Date,
     }
