@@ -16,7 +16,7 @@ export default class SimpleStudent extends Component {
         return (
             <Col xs={6} md={2}>
                 <Card className="text-center my-2"> 
-                    <Card.Img variant="top" src={this.props.student.sex == 'M'?"student_male.png":"student_female.png"}/>
+                    <Card.Img variant="top" src={this.props.student.sex == 'M'?"/student_male.png":"/student_female.png"}/>
                     <Card.Body>
                         <Card.Title>{this.props.student.name} {this.props.student.surname}</Card.Title>
                     </Card.Body>

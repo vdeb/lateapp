@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
 
 import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
 
-import SimpleStudent from '../components/SimpleStudent.jsx';
+import ClassCard from '../components/ClassCard';
 
 export default class ClassesPage extends Component {
 
@@ -20,7 +17,9 @@ export default class ClassesPage extends Component {
                     My classes
                 </h2>
                 <Row>
-                
+                    <ClassCard />
+                    <ClassCard />
+                    <ClassCard />
                 </Row>
             </div>
         )
