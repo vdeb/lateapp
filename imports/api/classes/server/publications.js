@@ -5,7 +5,7 @@ import { Meteor } from 'meteor/meteor';
 import { Classes } from '../classes.js';
 
 
-Meteor.publish('classes', function listsPrivate() {
+Meteor.publish('classes', function classesPrivate() {
   if (!this.userId) {
     return this.ready();
   }
