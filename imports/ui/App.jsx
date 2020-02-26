@@ -3,13 +3,11 @@ import Container from 'react-bootstrap/Container';
 
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 
-
-
-import SingleClassPage from './pages/SingleClassPage.jsx';
 import JoinPage from './pages/JoinPage.jsx';
 import SignInPage from './pages/SignInPage.jsx';
 import NotFoundPage from './pages/NotFoundPage.jsx';
-import ClassesPage from './pages/ClassesPage.jsx';
+import SingleClassPage from './pages/SingleClassPage';
+import ClassContainer from './containers/ClassContainer';
 
 import NavMenu from './components/NavMenu';
 
@@ -19,7 +17,7 @@ export default class App extends Component {
     return (
       <div className="wrapper">
         <BrowserRouter>
-          <NavMenu />
+          <NavMenu classes={this.props.classes} user={this.props.user}/>
           <Container fluid>
           <Switch>
             <Route
@@ -31,18 +29,13 @@ export default class App extends Component {
               component={SignInPage}
             />
             <Route
-              path="/classes"
-              component={ClassesPage}
-            />
-            <Route 
-              path="/class">
-              <SingleClassPage students={this.props.students} />
-            </Route>
+              path="/class/:id"
+              component={ClassContainer(SingleClassPage)} />
             <Route 
               exact path='/'>
               <Redirect
                 to={{
-                  pathname: "/classes"
+                  pathname: "/signin"
                 }}
               />
             </Route>

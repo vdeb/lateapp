@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Nav from 'react-bootstrap/Nav';
+import { NavLink } from 'react-router-dom';
 
 import UserMenu from './UserMenu.jsx';
 
@@ -13,19 +14,20 @@ export default class NavMenu extends Component {
                         <h3>LateApp</h3>
                     </div>
                 </a>
-                <UserMenu user={this.props.user} logout={this.logout}/>
+                <UserMenu user={this.props.user}/>
+                {this.props.user ?
                 <ul className="list-unstyled components">
-                    <p>Content</p>
-                    <li className="active">
-                    <a href="/classes">My classes</a>
-                    </li>
-                    <li>
-                        <a href="/about">About</a>
-                    </li> 
-                    <li>
-                        <a href="/contact">Contact</a>
-                    </li>
-                </ul>
+                    <p>Mes classes</p>
+                    {this.props.classes.map((classelt) => (
+                            <NavLink 
+                                to={"/class/" + classelt._id}
+                                activeClassName="active">
+                                <li key={classelt._id}>
+                                    {classelt.name}
+                                </li>
+                            </NavLink>
+                    ))}
+                </ul>:null}
             </Nav>
         )
     }

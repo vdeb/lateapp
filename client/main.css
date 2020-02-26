@@ -86,22 +86,22 @@ a:focus {
     padding: 10px;
 }
 
-#sidebar ul li a {
+#sidebar ul a li {
     padding: 10px;
     font-size: 1.1em;
     display: block;
     color: #fff;
 }
 
-#sidebar ul li a:hover {
+#sidebar ul a li:hover {
     color: #7386D5;
     background: #fff;
 }
 
-#sidebar ul li.active>a,
+#sidebar ul a.active>li,
 a[aria-expanded="true"] {
     color: #fff;
-    background: #6d7fcc;
+    background: #687aca;
 }
 
 a[data-toggle="collapse"] {

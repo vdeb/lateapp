@@ -94,7 +94,6 @@ export default class CoursePage extends Component {
     }
 
     renderForm() {
-
         return (
           <Form noValidate validated={this.state.FormValidated} onSubmit={this.handleFormSubmit} className="border p-2">
             <h5>Création d'une nouvelle session</h5>
@@ -149,13 +148,15 @@ export default class CoursePage extends Component {
         return (
             <div>
                 <h2>
-                    Cours Innovation 2020
-                    <Button
-                    onClick={this.displayForm}
-                    style= {{display: this.state.FormVisible && 'none'}}
-                    >Commencer une nouvelle session</Button>
+                    {this.props.classes.map((classe) => (classe.name))}
                 </h2>
+                <Button
+                  onClick={this.displayForm}
+                  style= {{display: this.state.FormVisible && 'none'}}
+                  >Commencer une nouvelle session
+                </Button>
                 {this.state.FormVisible?this.renderForm():<div></div>}
+                <h4>Etudiants :</h4>
                 <Row>
                 {this.props.students.length > 0 && this.renderStudents()}
                 </Row>

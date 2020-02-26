@@ -57,27 +57,31 @@ Meteor.startup(() => {
             "sex" : "M",
         },
     ];
+    [1, 2].map( function(i){
+        let timestamp = (new Date()).getTime();
 
-    let timestamp = (new Date()).getTime();
+        const classId = Classes.insert({
+            name: 'Innov 2020 - ' + i,
+            userId: user._id,
+            createdAt: new Date(timestamp)
+        })
 
-    const classId = Classes.insert({
-        name: 'Innov 2020',
-        userId: user._id,
-        createdAt: new Date(timestamp)
-    })
+        data.forEach((student) => {
+            // will be used afterwards
+        const studentId = Students.insert({
+            name: student.name + i,
+            surname: student.surname + i,
+            nationality: student.nationality,
+            sex: student.sex,
+            createdAt: new Date(timestamp),
+            classId : classId
+        });
 
-    data.forEach((student) => {
-        // will be used afterwards
-      const studentId = Students.insert({
-        name: student.name,
-        surname: student.surname,
-        nationality: student.nationality,
-        sex: student.sex,
-        createdAt: new Date(timestamp),
-        classId : classId
-      });
-
-        timestamp += 1; // ensure unique timestamp.
-      });
+            timestamp += 1; // ensure unique timestamp.
+        });
+    }
+        )
+    
+    
     }
 });
