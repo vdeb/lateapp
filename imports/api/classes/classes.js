@@ -32,3 +32,9 @@ Classes.publicFields = {
     userId: 1,
     createdAt: 1
 };
+
+Classes.helpers({
+    editableBy(userId) {
+        return this.userId === userId;
+    }
+});

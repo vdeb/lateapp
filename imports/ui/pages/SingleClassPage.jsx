@@ -83,7 +83,13 @@ export default class CoursePage extends Component {
     }
     else {
         const sessionDate = new Date(new Date(this.state.sessionDate).fromDatetimeLocal());
-        Meteor.call('sessions.insert', {name: this.state.name, sessionDate: sessionDate});
+        Meteor.call(
+          'sessions.insert',
+          {
+            name: this.state.name,
+            sessionDate: sessionDate,
+            classId: this.props.class
+          });
         //event.preventDefault();
         //event.stopPropagation();
     }
@@ -97,14 +103,14 @@ export default class CoursePage extends Component {
         return (
           <Form noValidate validated={this.state.FormValidated} onSubmit={this.handleFormSubmit} className="border p-2">
             <h5>Création d'une nouvelle session</h5>
-            <Form.Control
+            {/* <Form.Control
               placeholder = "Image"
               as='input'
               type='file'
               multiple
               >
 
-            </Form.Control>
+            </Form.Control> */}
             <Form.Group as={Row} controlId="LabelText">
               <Form.Label column sm={6} md={4} lg={2}>Nom de la session (Optionel)</Form.Label>
               <Col sm={6} md={4} lg={3} >

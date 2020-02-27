@@ -2,6 +2,7 @@ import { Mongo } from 'meteor/mongo';
 import SimpleSchema from 'simpl-schema';
 
 import { Students } from '../students/students.js';
+import { Classes } from '../classes/classes.js';
 
 class SessionsCollection extends Mongo.Collection {
 
@@ -12,7 +13,7 @@ class SessionsCollection extends Mongo.Collection {
             ourSession.name = `Session du ${ourSession.sessionDate.toLocaleString('fr')}`;
         }
 
-        ourSession.students = Students.find({}).fetch();
+        ourSession.students = Students.find({ classId: ourSession.classId }).fetch();
 
         // An active session is an ongoing one
         ourSession.active = true;
@@ -42,6 +43,10 @@ Sessions.deny({
     active: {
         type: Boolean
     },
+    classId: {
+        type: String,
+        regEx: SimpleSchema.RegEx.Id,
+    },
     students: {
         type: Array,
     },
@@ -55,3 +60,12 @@ Sessions.deny({
   });
 
   Sessions.attachSchema(Sessions.schema);
+
+  Sessions.helpers({
+      class() {
+          return Classes.findOne(this.classId);
+      },
+      editableBy(userId) {
+          return this.class().editableBy(userId);
+      }
+  });

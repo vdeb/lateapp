@@ -13,9 +13,13 @@ export const insert = new ValidatedMethod({
         },
         sessionDate: {
             type: Date,
+        },
+        classId: {
+            type: String,
+            regEx: SimpleSchema.RegEx.Id,
         }
     }).validator(),
-    run({ name, sessionDate }) {
-      return Sessions.insert({ name, sessionDate });
+    run({ name, sessionDate, classId }) {
+      return Sessions.insert({ name, sessionDate, classId });
     },
   });

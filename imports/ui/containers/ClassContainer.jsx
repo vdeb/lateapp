@@ -10,7 +10,8 @@ const ClassContainer = (component) => withTracker(( match ) => {
     return {
     loading: !(studentsHandle.ready()),
     students: Students.find({}, { sort: { name: 1 } }).fetch(),
-    classes: Classes.find({_id: id}).fetch()
+    classes: Classes.find({_id: id}).fetch(),
+    class: id
     };
 })(component);
 
