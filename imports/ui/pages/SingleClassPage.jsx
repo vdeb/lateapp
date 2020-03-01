@@ -90,8 +90,7 @@ export default class CoursePage extends Component {
             sessionDate: sessionDate,
             classId: this.props.class
           });
-        //event.preventDefault();
-        //event.stopPropagation();
+        this.props.history.replace('/session');
     }
     this.setState({
       FormVisible: false,

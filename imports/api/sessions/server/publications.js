@@ -6,13 +6,12 @@ import { Sessions } from '../sessions';
 
 
 Meteor.publish('activeSession', function activeSession() {
-  if (!this.userId) {
+    if (!this.userId) {
     return this.ready();
   }
 
-  return Sessions.findOne({
+  const sessions = Sessions.find({
     userId: this.userId,
-  }, {
-    fields: { _id: 1 },
   });
+  return sessions
 });

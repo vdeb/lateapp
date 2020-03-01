@@ -1,5 +1,6 @@
 import { Mongo } from 'meteor/mongo';
 import SimpleSchema from 'simpl-schema';
+import { _ } from 'underscore';
 
 import { Students } from '../students/students.js';
 import { Classes } from '../classes/classes.js';
@@ -9,12 +10,12 @@ class SessionsCollection extends Mongo.Collection {
     insert(session, callback) {
         const ourSession = session;
         if (!ourSession.name) {
-            console.log("Name not defined");
+            console.log("Session Name not defined");
             ourSession.name = `Session du ${ourSession.sessionDate.toLocaleString('fr')}`;
         }
 
         ourSession.students = Students.find({ classId: ourSession.classId }).fetch();
-
+        _.each(ourSession.students, (student) => (student.isAbsent = false));
         // An active session is an ongoing one
         ourSession.active = true;
     
@@ -30,6 +31,22 @@ Sessions.deny({
     update() { return true; },
     remove() { return true; },
   });
+
+  const studentSchema = Students.schema
+  studentSchema.extend({
+      _id: {
+          type: String, 
+          regEx: SimpleSchema.RegEx.Id
+        },
+      isAbsent: {
+          type: Boolean,
+          defaultValue: false
+      },
+      arrivedAt: {
+          type: Date,
+          optional: true
+      }
+    })
 
   Sessions.schema = new SimpleSchema({
     name: {
@@ -47,11 +64,15 @@ Sessions.deny({
         type: String,
         regEx: SimpleSchema.RegEx.Id,
     },
+    userId: { 
+        type: String,
+        regEx: SimpleSchema.RegEx.Id,
+    },
     students: {
         type: Array,
     },
     'students.$': {
-        type: Students.schema,
+        type: studentSchema,
     },
     createdAt: {
         type: Date,

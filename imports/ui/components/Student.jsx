@@ -4,15 +4,19 @@ import Card from 'react-bootstrap/Card';
 
 export default class SimpleStudent extends Component {
 
+    constructor() {
+        super();
+    }
+
     getFooter() {
         return (
             <Card.Footer>
                 <button className="btn btn-primary btn-sm float-left"
-                    id="left"> 
+                    id="left" onClick={this.props.handleLate}> 
                     Arrivé !
                 </button> 
                 <button className="btn btn-outline-danger btn-sm float-right"
-                        id="right">
+                        id="right" onClick={this.props.handleAbsence}>
                     Absent
                 </button>
             </Card.Footer>
@@ -21,9 +25,9 @@ export default class SimpleStudent extends Component {
 
     render() {
         return (
-            <Col xs={6} md={2}>
+            <Col xs={6} sm={4} md={4} lg={3} xl={2}>
                 <Card className="text-center my-2"> 
-                    <Card.Img variant="top" src="student_male.png"/>
+                    <Card.Img variant="top" src={this.props.student.sex == 'M'?"/student_male.png":"/student_female.png"}/>
                     <Card.Body>
                         <Card.Title>{this.props.student.name} {this.props.student.surname}</Card.Title>
                     </Card.Body>
