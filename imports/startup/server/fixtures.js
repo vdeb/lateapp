@@ -5,7 +5,14 @@ import { Accounts } from 'meteor/accounts-base';
 
 // if the database is empty on server start, create some sample data.
 Meteor.startup(() => {
-   const user = Accounts.findUserByEmail('victor.debray.2011@gmail.com');
+   let user = Accounts.findUserByEmail('test@gmail.com');
+   if (!user) {
+    Accounts.createUser({
+        "email": "test@gmail.com",
+        "password": "test",
+      });
+      user = Accounts.findUserByEmail('test@gmail.com');
+   }
   if (Classes.find().count() === 0) {
     const data = [
         {
