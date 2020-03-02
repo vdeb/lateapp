@@ -12,6 +12,7 @@ Meteor.publish('activeSession', function activeSession() {
 
   const sessions = Sessions.find({
     userId: this.userId,
+    active: true
   });
   return sessions
 });

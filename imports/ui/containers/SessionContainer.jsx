@@ -3,7 +3,7 @@ import { withTracker } from 'meteor/react-meteor-data';
 
 import { Sessions } from '../../api/sessions/sessions';
 
-const SessionContainer = (component) => withTracker(( match ) => {
+const SessionContainer = (component) => withTracker(() => {
     const sessionHandle = Meteor.subscribe('activeSession');
     return {
     loading: !(sessionHandle.ready()),
@@ -11,4 +11,4 @@ const SessionContainer = (component) => withTracker(( match ) => {
     };
 })(component);
 
-export default SessionContainer;
+export default SessionContainer;    

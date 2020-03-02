@@ -4,11 +4,6 @@ import SimpleSchema from 'simpl-schema';
 import { Students } from '../students.js';
 import { Classes } from '../../classes/classes.js';
 
-// Meteor.publish('students', function studentsPublication() {
-//     return Students.find({}, {
-//         fields: Students.publicFields,
-//       });
-// })
 
 Meteor.publishComposite('students.inClass', function todosInClass(params) {
   new SimpleSchema({

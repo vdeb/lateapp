@@ -58,3 +58,4 @@ Students.deny({
       return this.class().editableBy(userId);
     }
   });
+  
