@@ -75,7 +75,7 @@ export default class SignInPage extends Component  {
           
           <Form noValidate validated={this.state.FormValidated} className="form-signin" onSubmit={this.onSubmit}>
           <h1 className="h3 mb-3 font-weight-normal">
-            S'enregistrer
+            Se connecter
           </h1>
             <Form.Group controlId="EmailGroup">
               <Form.Label className="sr-only">Email</Form.Label>

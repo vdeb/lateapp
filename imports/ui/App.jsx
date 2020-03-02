@@ -1,50 +1,27 @@
 import React, { Component } from 'react';
-import { withTracker } from 'meteor/react-meteor-data';
 import Container from 'react-bootstrap/Container';
-import Nav from 'react-bootstrap/Nav';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
-import UserMenu from './components/UserMenu.jsx';
+import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 
-import CoursePage from './pages/CoursePage.jsx';
 import JoinPage from './pages/JoinPage.jsx';
 import SignInPage from './pages/SignInPage.jsx';
 import NotFoundPage from './pages/NotFoundPage.jsx';
+import SingleClassPage from './pages/SingleClassPage';
+import SessionPage from './pages/SessionPage.jsx';
+import ClassContainer from './containers/ClassContainer';
+import SessionContainer from './containers/SessionContainer.jsx';
 
-import { Students } from '../api/students/students.js';
+import NavMenu from './components/NavMenu';
 
-class App extends Component {
 
-  constructor() {
-    super();
-  }
 
-  
+export default class App extends Component {
 
   render() {
     return (
       <div className="wrapper">
         <BrowserRouter>
-        <Nav id="sidebar">
-
-          <div className="sidebar-header">
-              <h3>LateApp</h3>
-          </div>
-          <UserMenu user={this.props.user} logout={this.logout}/>
-          <ul className="list-unstyled components">
-            <p>Content</p>
-            <li className="active">
-              <a href="/classes">My classes</a>
-            </li>
-            <li>
-                <a href="/about">About</a>
-            </li> 
-            <li>
-                <a href="/contact">Contact</a>
-            </li>
-        </ul>
-        </Nav>
-        
+          <NavMenu classes={this.props.classes} user={this.props.user}/>
           <Container fluid>
           <Switch>
             <Route
@@ -55,9 +32,19 @@ class App extends Component {
               path="/signin"
               component={SignInPage}
             />
-            <Route exact
-              path="/">
-              <CoursePage students={this.props.students} />
+            <Route
+              path="/class/:id"
+              component={ClassContainer(SingleClassPage)} />
+            <Route
+              path="/session"
+              component={SessionContainer(SessionPage)} />
+            <Route 
+              exact path='/'>
+              <Redirect
+                to={{
+                  pathname: "/signin"
+                }}
+              />
             </Route>
             <Route
               path="/">
@@ -70,12 +57,3 @@ class App extends Component {
     );
   }
 }
-
-export default withTracker(() => {
-  Meteor.subscribe('students');
-
-  return {
-    user : Meteor.user(),
-    students: Students.find({}, { sort: { name: 1 } }).fetch(),
-  };
-})(App);

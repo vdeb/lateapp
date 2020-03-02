@@ -1,5 +1,6 @@
 import { Mongo } from 'meteor/mongo';
 import SimpleSchema from 'simpl-schema';
+import { Classes } from '../classes/classes';
 
 
 export const Students = new Mongo.Collection('students');
@@ -28,7 +29,11 @@ Students.deny({
     sex: {
         type: String,
         max: 1,
-        regEx: /[mf]/
+        regEx: /[MF]/
+    },
+    classId: {
+      type: String,
+      regEx: SimpleSchema.RegEx.Id,
     },
     createdAt: {
       type: Date,
@@ -44,3 +49,13 @@ Students.deny({
     sex: 1,
     createdAt: 1
   };
+
+  Students.helpers({
+    class() {
+      return Classes.findOne(this.classId);
+    },
+    editableBy(userId) {
+      return this.class().editableBy(userId);
+    }
+  });
+  
