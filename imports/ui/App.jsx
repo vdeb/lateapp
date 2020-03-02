@@ -12,6 +12,7 @@ import ClassContainer from './containers/ClassContainer';
 import SessionContainer from './containers/SessionContainer.jsx';
 
 import NavMenu from './components/NavMenu';
+import NewClassPage from './pages/NewClassPage.jsx';
 
 
 
@@ -38,6 +39,9 @@ export default class App extends Component {
             <Route
               path="/session"
               component={SessionContainer(SessionPage)} />
+            <Route
+              path="/newclass"
+              component={NewClassPage} />
             <Route 
               exact path='/'>
               <Redirect
