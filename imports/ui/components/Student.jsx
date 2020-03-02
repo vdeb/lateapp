@@ -1,23 +1,32 @@
 import React, { Component } from 'react';
 import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';
+import Button from 'react-bootstrap/Button';
+import ButtonGroup from 'react-bootstrap/ButtonGroup';
 
 export default class SimpleStudent extends Component {
 
     getFooter() {
         if (this.props.status == "awaited"){
             return (
-                <Card.Footer>
-                    <button className="btn btn-primary btn-sm float-left"
-                        id="left" onClick={this.props.handleLate}> 
+                <ButtonGroup>
+                    <Button
+                        onClick={this.props.handleLate}> 
                         Arrivé !
-                    </button> 
-                    <button className="btn btn-outline-danger btn-sm float-right"
-                            id="right" onClick={this.props.handleAbsence}>
+                    </Button> 
+                    <Button
+                            variant="outline-danger" onClick={this.props.handleAbsence}>
                         Absent
-                    </button>
-                </Card.Footer>
+                    </Button>
+                </ButtonGroup>
             )}
+        else {
+            return (
+                <Button variant="info">
+                    Modifier
+                </Button>
+            )
+        }
     }
 
     render() {
