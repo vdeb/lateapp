@@ -1,24 +1,63 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import ListGroup from 'react-bootstrap/ListGroup';
+
+import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
+
+import JoinPage from './pages/JoinPage.jsx';
+import SignInPage from './pages/SignInPage.jsx';
+import NotFoundPage from './pages/NotFoundPage.jsx';
+import SingleClassPage from './pages/SingleClassPage';
+import SessionPage from './pages/SessionPage.jsx';
+import ClassContainer from './containers/ClassContainer';
+import SessionContainer from './containers/SessionContainer.jsx';
+
+import NavMenu from './components/NavMenu';
+import NewClassPage from './pages/NewClassPage.jsx';
 
 
-const App = () => (
-  <Container fluid>
-    <h1>Welcome to LateApp!</h1>
-    <Row>
-      <Col md={3}>
-        <h4>Mes cours :</h4>
-        <ListGroup>
-          <ListGroup.Item>Innov 2019 - Semestre 1</ListGroup.Item>
-          <ListGroup.Item>Innov 2019 - Semestre 2</ListGroup.Item>
-        </ListGroup>
-      </Col>
-      <Col md={9}>Fenêtre principale</Col>
-    </Row>
-  </Container>
-);
 
-export default App;
+export default class App extends Component {
+
+  render() {
+    return (
+      <div className="wrapper">
+        <BrowserRouter>
+          <NavMenu classes={this.props.classes} user={this.props.user}/>
+          <Container fluid>
+          <Switch>
+            <Route
+              path="/join"
+              component={JoinPage}
+            />
+            <Route
+              path="/signin"
+              component={SignInPage}
+            />
+            <Route
+              path="/class/:id"
+              component={ClassContainer(SingleClassPage)} />
+            <Route
+              path="/session"
+              component={SessionContainer(SessionPage)} />
+            <Route
+              path="/newclass"
+              component={NewClassPage} />
+            <Route 
+              exact path='/'>
+              <Redirect
+                to={{
+                  pathname: "/signin"
+                }}
+              />
+            </Route>
+            <Route
+              path="/">
+              <NotFoundPage />
+            </Route>
+          </Switch>
+          </Container>
+        </BrowserRouter>
+      </div>
+    );
+  }
+}
