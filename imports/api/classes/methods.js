@@ -5,8 +5,6 @@ import { Classes } from './classes' ;
 import { Students } from '../students/students';
 import { SimpleSchema } from 'simpl-schema/dist/SimpleSchema';
 
-console.log(Students.schema.omit(['createdAt', 'classId']));
-
 export const classInsert = new ValidatedMethod({
     name: 'classes.insert',
     validate: new SimpleSchema({

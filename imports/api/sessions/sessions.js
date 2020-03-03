@@ -10,7 +10,6 @@ class SessionsCollection extends Mongo.Collection {
     insert(session, callback) {
         const ourSession = session;
         if (!ourSession.name) {
-            console.log("Session Name not defined");
             ourSession.name = `Session du ${ourSession.sessionDate.toLocaleString('fr')}`;
         }
 
@@ -32,7 +31,7 @@ Sessions.deny({
     remove() { return true; },
   });
 
-  const studentSchema = Students.schema.pick("name",  "surname", "sex", "nationality", "schoolId", "classId", "createdAt")
+  const studentSchema = Students.schema.pick("name",  "surname", "sex", "nationality", "schoolId", "classId", "createdAt", "dataURL")
   studentSchema.extend({
       _id: {
           type: String, 
