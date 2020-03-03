@@ -27,6 +27,13 @@ export default class NavMenu extends Component {
                                 </li>
                             </NavLink>
                     ))}
+                    <NavLink 
+                        to='/newclass'
+                        activeClassName="active">
+                        <li key="new_class">
+                            + Nouvelle classe
+                        </li>
+                    </NavLink>
                 </ul>:null}
             </Nav>
         )

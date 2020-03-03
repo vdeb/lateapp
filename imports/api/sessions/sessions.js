@@ -32,7 +32,7 @@ Sessions.deny({
     remove() { return true; },
   });
 
-  const studentSchema = Students.schema
+  const studentSchema = Students.schema.pick("name",  "surname", "sex", "nationality", "schoolId", "classId", "createdAt")
   studentSchema.extend({
       _id: {
           type: String, 
