@@ -31,6 +31,11 @@ Students.deny({
         max: 1,
         regEx: /[MF]/
     },
+    schoolId: {
+      type: String,
+      max: 10,
+      optional: true
+  },
     classId: {
       type: String,
       regEx: SimpleSchema.RegEx.Id,
