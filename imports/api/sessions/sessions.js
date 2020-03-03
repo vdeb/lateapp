@@ -31,7 +31,7 @@ Sessions.deny({
     remove() { return true; },
   });
 
-  const studentSchema = Students.schema.pick("name",  "surname", "sex", "nationality", "schoolId", "classId", "createdAt")
+  const studentSchema = Students.schema.pick("name",  "surname", "sex", "nationality", "schoolId", "classId", "createdAt", "dataURL")
   studentSchema.extend({
       _id: {
           type: String, 

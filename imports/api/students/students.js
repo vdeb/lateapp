@@ -31,6 +31,10 @@ Students.deny({
         max: 1,
         regEx: /[MF]/
     },
+    dataURL: {
+      type: String,
+      optional: true
+    },
     schoolId: {
       type: String,
       max: 10,
@@ -51,6 +55,7 @@ Students.deny({
     name: 1,
     surname: 1,
     nationality: 1,
+    dataURL: 1,
     sex: 1,
     createdAt: 1
   };

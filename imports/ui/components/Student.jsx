@@ -25,10 +25,17 @@ export default class SimpleStudent extends Component {
         if (this.props.status == "absent"){
             color = 'grey';
         }
+        let img
+        if (!this.props.student.dataURL) {
+            img = this.props.student.sex == 'M'?"/student_male.png":"/student_female.png";
+        }
+        else {
+            img = this.props.student.dataURL;
+        }
         return (
             <Col xs={6} sm={4} md={4} lg={3} xl={2}>
                 <Card className="text-center my-2" style={{backgroundColor: color}}> 
-                    <Card.Img variant="top" src={this.props.student.sex == 'M'?"/student_male.png":"/student_female.png"}/>
+                    <Card.Img variant="top" src={img}/>
                     <Card.Body>
                         <Card.Title>{this.props.student.name} {this.props.student.surname}</Card.Title>
                     </Card.Body>

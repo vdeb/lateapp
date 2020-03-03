@@ -15,6 +15,7 @@ export default class NewClassPage extends Component {
             FormValidated: false
         }
         this.curriculum = React.createRef()
+        this.curriculumPhotos = React.createRef()
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
       }
@@ -25,10 +26,31 @@ export default class NewClassPage extends Component {
         })
     }
 
-    handleSubmit(event) {
+    async fromFilesToState(files) {
+        let studentsPhotos = {};
+        
+        [...files].forEach((f) => {
+            var reader = new FileReader();
+            reader.onload = () => (studentsPhotos[f.name.split('.')[0]] = reader.result);
+            reader.readAsDataURL(f)}
+        );
+        return studentsPhotos
+    }
+    async handlePhotos() {
+        let files = this.curriculumPhotos.current.files;
+        console.log(files);
+
+        let studentsPhotos = await this.fromFilesToState(files);
+
+        this.setState({ studentsPhotos: studentsPhotos });
+    }
+
+    async handleSubmit(event) {
         event.preventDefault();
         const form = event.currentTarget;
         if(form.checkValidity()){
+            await this.handlePhotos()
+
             let f = this.curriculum.current.files[0];
             var reader = new FileReader();
             reader.onload = (e) => {
@@ -39,13 +61,14 @@ export default class NewClassPage extends Component {
                 var data = XLSX.utils.sheet_to_json(first_worksheet, {header:1});
                 data.shift();
                 var sentData = [];
-                data.forEach(function(student){
+                data.forEach((student) => {
                     sentData.push({
                         "name": student[2],
                         "surname": student[3],
                         "nationality": student[4],
                         "sex": student[1],
-                        "schoolId": student[0]
+                        "schoolId": student[0],
+                        "dataURL": this.state.studentsPhotos[student[0]],
                     })
                 });
 
@@ -63,6 +86,7 @@ export default class NewClassPage extends Component {
             this.props.history.replace('/');
         }
         else {
+            // this.handlePhotos();
             this.setState({FormValidated: true});
         }
     }
@@ -106,6 +130,23 @@ export default class NewClassPage extends Component {
                             />
                             <Form.Control.Feedback type="invalid">
                                 Sans fichier, pas de classe...
+                            </Form.Control.Feedback>
+                        </Col>
+                    </Form.Group>
+                    <Form.Group as={Row}>
+                        <Form.Label column sm={6} md={4} lg={2}>
+                            Photos:
+                        </Form.Label>
+                        <Col sm={6} md={5} lg={4}>
+                            <Form.Control
+                                placeholder = "Photos"
+                                as='input'
+                                type='file'
+                                multiple
+                                ref={this.curriculumPhotos}
+                            />
+                            <Form.Control.Feedback type="invalid">
+                                Pas de photos : pas pratique mais ok
                             </Form.Control.Feedback>
                         </Col>
                     </Form.Group>
