@@ -19,6 +19,11 @@ import NewClassPage from './pages/NewClassPage.jsx';
 export default class App extends Component {
 
   render() {
+    console.log(this.props);
+    console.log(this.props.user?"User": "no user");
+    if(this.props.loading) {
+      return "Loading"
+    }
     return (
       <div className="wrapper">
         <BrowserRouter>
@@ -45,8 +50,12 @@ export default class App extends Component {
             <Route 
               exact path='/'>
               <Redirect
-                to={{
+                to={!this.props.user ? {
                   pathname: "/signin"
+                }: this.props.classes.length > 0 ?{
+                  pathname: "/class/" + this.props.classes[0]._id
+                } :{
+                  pathname: "/newclass"
                 }}
               />
             </Route>
