@@ -38,7 +38,6 @@ export default class NewClassPage extends Component {
     }
     async handlePhotos() {
         let files = this.curriculumPhotos.current.files;
-        console.log(files);
 
         let studentsPhotos = await this.fromFilesToState(files);
 
@@ -86,7 +85,6 @@ export default class NewClassPage extends Component {
             this.props.history.replace('/');
         }
         else {
-            // this.handlePhotos();
             this.setState({FormValidated: true});
         }
     }

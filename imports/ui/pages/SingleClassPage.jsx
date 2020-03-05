@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -90,7 +91,7 @@ export default class CoursePage extends Component {
             sessionDate: sessionDate,
             classId: this.props.class
           });
-        this.props.history.replace('/session');
+        this.props.history.replace('/session/active');
     }
     this.setState({
       FormVisible: false,
@@ -135,6 +136,16 @@ export default class CoursePage extends Component {
         )
       }
 
+    renderSessionslist() {
+      return this.props.sessions.map( (session) => (
+      <li>
+        <Link to={'/session/' + session._id}>
+          {session.name} ({session.sessionDate.toDatetimeLocal()})
+        </Link>
+      </li>
+      ));
+    }
+
     renderStudents() {
         return this.props.students.map( (student) => (
           <SimpleStudent key={student._id} student={student} />
@@ -147,12 +158,15 @@ export default class CoursePage extends Component {
                 <h2>
                     {this.props.classes.map((classe) => (classe.name))}
                 </h2>
+                <h4>Sessions</h4>
                 <Button
                   onClick={this.displayForm}
                   style= {{display: this.state.FormVisible && 'none'}}
                   >Commencer une nouvelle session
                 </Button>
                 {this.state.FormVisible?this.renderForm():<div></div>}
+                <p>Sessions passées :</p>
+                <ul>{this.renderSessionslist()}</ul>
                 <h4>Etudiants :</h4>
                 <Row>
                 {this.props.students.length > 0 && this.renderStudents()}

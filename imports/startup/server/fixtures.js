@@ -87,7 +87,6 @@ Meteor.startup(() => {
             if (student.dataURL) {
                 studentDoc["dataURL"] = student.dataURL
             }
-            console.log(studentDoc);
             const studentId = Students.insert(studentDoc);
 
             timestamp += 1; // ensure unique timestamp.

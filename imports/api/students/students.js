@@ -16,11 +16,11 @@ Students.deny({
  Students.schema = new SimpleSchema({
     name: {
         type: String,
-        max: 30
+        max: 50
     },
     surname: {
         type: String,
-        max: 30
+        max: 100
     },
     nationality: {
         type: String,

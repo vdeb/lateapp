@@ -7,18 +7,25 @@ import JoinPage from './pages/JoinPage.jsx';
 import SignInPage from './pages/SignInPage.jsx';
 import NotFoundPage from './pages/NotFoundPage.jsx';
 import SingleClassPage from './pages/SingleClassPage';
-import SessionPage from './pages/SessionPage.jsx';
+import ActiveSessionPage from './pages/ActiveSessionPage.jsx';
 import ClassContainer from './containers/ClassContainer';
+import ActiveSessionContainer from './containers/ActiveSessionContainer.jsx';
 import SessionContainer from './containers/SessionContainer.jsx';
 
-import NavMenu from './components/NavMenu';
 import NewClassPage from './pages/NewClassPage.jsx';
+import SessionPage from './pages/SessionPage.jsx';
+
+
+import NavMenu from './components/NavMenu';
 
 
 
 export default class App extends Component {
 
   render() {
+    if(this.props.loading) {
+      return "Loading"
+    }
     return (
       <div className="wrapper">
         <BrowserRouter>
@@ -37,7 +44,10 @@ export default class App extends Component {
               path="/class/:id"
               component={ClassContainer(SingleClassPage)} />
             <Route
-              path="/session"
+              exact path="/session/active"
+              component={ActiveSessionContainer(ActiveSessionPage)} />
+            <Route
+              exact path="/session/:id"
               component={SessionContainer(SessionPage)} />
             <Route
               path="/newclass"
@@ -45,8 +55,12 @@ export default class App extends Component {
             <Route 
               exact path='/'>
               <Redirect
-                to={{
+                to={!this.props.user ? {
                   pathname: "/signin"
+                }: this.props.classes.length > 0 ?{
+                  pathname: "/class/" + this.props.classes[0]._id
+                } :{
+                  pathname: "/newclass"
                 }}
               />
             </Route>
