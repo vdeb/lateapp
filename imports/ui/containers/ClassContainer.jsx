@@ -3,7 +3,7 @@ import { withTracker } from 'meteor/react-meteor-data';
 
 import { Students } from '../../api/students/students';
 import { Classes } from '../../api/classes/classes';
-import { Session, Sessions } from '../../api/sessions/sessions';
+import { Sessions } from '../../api/sessions/sessions';
 
 const ClassContainer = (component) => withTracker(( match ) => {
     const id  = match.match.params.id;

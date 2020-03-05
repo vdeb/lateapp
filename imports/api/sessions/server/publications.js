@@ -38,18 +38,18 @@ Meteor.publish('session.forClass', function sessionForClass(params) {
 
 Meteor.publish('session', function activeSession(params) {
   if (!this.userId) {
-  return this.ready();
-}
+    return this.ready();
+  }
 
-new SimpleSchema({
-  sessionId: { type: String },
-}).validate(params);
+  new SimpleSchema({
+    sessionId: { type: String },
+  }).validate(params);
 
-const { sessionId } = params;
+  const { sessionId } = params;
 
-const sessions = Sessions.find({
-  userId: this.userId,
-  _id: sessionId
-});
-return sessions
+  const sessions = Sessions.find({
+    userId: this.userId,
+    _id: sessionId
+  });
+  return sessions
 });
