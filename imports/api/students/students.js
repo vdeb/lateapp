@@ -29,7 +29,7 @@ Students.deny({
     sex: {
         type: String,
         max: 1,
-        regEx: /[MF]/
+        regEx: /[MFN]/
     },
     dataURL: {
       type: String,
